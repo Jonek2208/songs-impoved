@@ -1,0 +1,14 @@
+<head>
+    <title>{{song_title}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <h1>Songs list</h1>
+    {% for song in songs %}
+    <div class="text-indigo-700 hover:text-indigo-600">
+        <a href="{% url 'song' song.id %}">{{song.title}}</a>
+    </div>
+    {% endfor %}
+</body>

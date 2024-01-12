@@ -1,0 +1,106 @@
+<head>
+<title>{{song_title}}</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <style>
+        .chord {
+            /* display: inline-block; */
+            font-size: 80%;
+            font-style: normal;
+            font-weight: 700;
+            margin-bottom: -1rem;
+            /* overflow: visible; */
+            /* position: relative;
+        top: -1.2em;
+        width: 0; */
+        }
+
+        /* .chord::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0px;
+        width: 30px;
+        height: 30px;
+    } */
+
+        .lyric {
+            white-space: pre;
+            display: flex;
+            align-items: center;
+        }
+
+        .word-with-chord {
+            white-space: nowrap;
+        }
+
+        .line {
+            line-height: 200%;
+            display: flex;
+            align-items: center;
+        }
+
+        .content {
+            position: relative;
+            /* font-family: monospace; */
+            font-size: larger;
+        }
+
+        .segment {
+            display: inline-block;
+        }
+
+        .tag {
+            margin-top: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .horizontal-line {
+            display: flex;
+            border-color: black;
+            border-style: solid;
+            border-width: 2px 0 0 0;
+            height: 0;
+            flex-grow: 1;
+            margin-right: calc(clamp(0rem, 100% - 1rem, 0.5rem));
+            margin-left: calc(clamp(0rem, 100% - 1rem, 0.5rem));
+        }
+
+        .bar {
+            height: 3rem;
+            width: 3px;
+            background-color: #cccccc;
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+    </style>
+    <a href="{% url 'songs' %}">Back to songs list</a>
+    <h1 class="text-4xl p-8">{{song_title}}</h1>
+    <div class="content p-8">
+        {% for line, is_tag in song_lines %}
+        {% if is_tag %}
+        <div class="tag">
+            <strong>{{line.1}}</strong>
+        </div>
+        {% else %}
+        <div class="line">
+            {% for item in line %}
+            <div class="segment">
+                {% if item.bar %}
+                <div class="bar"></div>
+                {% else %}
+                <div class="chord"><a hred="#">{{item.chord|default:""|safe}}&nbsp;</a></div>
+                <div class="lyric">{% if item.text %}{{item.text}}{% if item.spacer %}<div class="horizontal-line">
+                    </div>
+                    {% endif %}{%else%}&nbsp;{%endif%}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</body>

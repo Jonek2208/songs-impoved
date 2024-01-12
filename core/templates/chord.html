@@ -1,0 +1,12 @@
+<head>
+    <title>{{chord_name}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body>
+    <div>{{chord_name}}</div>
+    <div>
+        {% for note in notes %}<span class="px-1">{{note}}</span>{%endfor%}
+    </div>
+</body>
